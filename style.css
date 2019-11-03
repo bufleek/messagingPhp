@@ -3,3 +3,29 @@
     margin:0;
     font-family: 'Times New Roman', Times, serif;
 }
+body{
+    display: flex;
+    height:100vh;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+form{
+    max-width: 400px;
+    margin:0 20px;
+    padding: 50px 20px;
+    box-shadow: 5px 15px 15px 15px #bbb;
+}
+form input, form textarea{
+    width: 80%;
+    padding:8px 10%;
+}
+form textarea{
+    height:80px;
+}
+form input.submit{
+    background:#bbb;
+    border:none;
+    margin:20px auto 0 auto;
+
+}
