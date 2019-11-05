@@ -1,5 +1,5 @@
 <?php
-if (isset($_REQUEST)) {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['submit_message'])) {
       include "../classes/message.php";
       $name = $_POST['name'];

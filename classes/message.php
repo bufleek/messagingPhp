@@ -1,16 +1,39 @@
 <?php
-include "db.php";
-class message extends db{
+class connDb
+{
+
+    protected function connect()
+    {
+        $dbServername = "localhost";
+        $dbUsername = "root";
+        $dbPassword = "";
+        $dbName = "messaging";
+
+        $conn = new mysqli($dbServername, $dbUsername, $dbPassword, $dbName);
+        return $conn;
+    }
+}
+class message extends connDb{
 
     public function newMessage($name, $email, $phone, $message, $subject){
-        $conn = new db;
-        $sql = "INSERT INTO messages (name, email, phone, description, subject) VALUES('$name', '$email', '$phone', '$message', '$subject')";
-        if ($conn->connect()->query($sql)) {
-            header("location : ../../?sent");
+        $conn = new connDb();
+        $conn = $conn->connect();
+        $sql = "INSERT INTO messages(s_name, s_email, s_phone, m_message, m_subject, m_status) values('$name', '$email', '$phone', '$message', '$subject', 0)";
+        if (!$conn->connect_error) {
+            $conn->query($sql);
+            echo 'Message sent successfully';
         }
         else{
-            header("location : ../../?errordb");
+            echo 'failed to connect to db';
         }
     }
+
+    public function getMessages(){
+        $conn = new connDb;
+        $sql = "SELECT * FROM messages";
+        $messages = $conn->connect()->query($sql);
+        return $messages;
+    }
+
     
 }
