@@ -20,14 +20,31 @@ include "../classes/message.php";
             <h5 class="email">'.$message['s_email'].'</h5>
             <h4 class="subject">Subject ::'.$message['m_subject'].'</h4>
             <a class="view"></a>
-            <a href="?mark_as_read&id=">mark as read</a>
+            <a href="?markAsRead&mId='.$message['m_id'].'">mark as read</a>
         </div>
         <hr>';
         }
-        //read messages
-        elseif ($message['m_status'] == 1) {
-            
+    }
+    //read messages
+    echo '<h2>READ MESSAGES</h2>';
+    foreach($messages as $message){
+        if($message['m_status'] == 1){
+            echo'<div class="message">
+            <h4 class="sender">From :   '.$message['s_name'].'</h4>
+            <h5 class="email">'.$message['s_email'].'</h5>
+            <h4 class="subject">Subject ::'.$message['m_subject'].'</h4>
+            <a class="view"></a>
+        </div>
+        <hr>';
         }
+    }
+//pending
+    if (isset($_GET['markAsRead']) && isset($_GET['mId'])) {
+
+        $mId = $_GET['mId'];
+        $markAsRead = new message;
+        $markAsRead->markAsRead($mId);
+        
     }
 ?>
 

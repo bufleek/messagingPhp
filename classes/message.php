@@ -30,9 +30,18 @@ class message extends connDb{
 
     public function getMessages(){
         $conn = new connDb;
+        $conn = $conn->connect();
         $sql = "SELECT * FROM messages";
-        $messages = $conn->connect()->query($sql);
+        $messages = $conn->query($sql);
         return $messages;
+    }
+//pending
+    public function markAsRead($mId){
+        $conn = new connDb;
+        $conn = $conn->connect();
+
+        $sql = "UPDATE messages SET m_status = 1 WHERE m_id = $mId";
+        $conn->query($sql);
     }
 
     
