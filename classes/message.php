@@ -43,6 +43,15 @@ class message extends connDb{
         $sql = "UPDATE messages SET m_status = 1 WHERE m_id = $mId";
         $conn->query($sql);
     }
+    public function markAsUnread($mId){
+        $conn = new connDb;
+        $conn = $conn->connect();
+
+        $sql = "UPDATE messages SET m_status = 0 WHERE m_id = $mId";
+        $conn->query($sql);
+    }
+    //to be revisited ... Error ... cannot use object of mysqli_result as array
+
 
     
 }
