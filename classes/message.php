@@ -35,7 +35,7 @@ class message extends connDb{
         $messages = $conn->query($sql);
         return $messages;
     }
-//pending
+
     public function markAsRead($mId){
         $conn = new connDb;
         $conn = $conn->connect();
@@ -50,7 +50,6 @@ class message extends connDb{
         $sql = "UPDATE messages SET m_status = 0 WHERE m_id = $mId";
         $conn->query($sql);
     }
-    //to be revisited ... Error ... cannot use object of mysqli_result as array
 
 
     

@@ -12,17 +12,17 @@
 session_start();
 include "../classes/message.php";
     $cMessages = new message;
-    
-    echo '<h2>UNREAD MESSAGES</h2>';
-
     $messages = $cMessages->getMessages();
 
     //Display messages
+    echo '<h2>UNREAD MESSAGES<sup><span class="messageCount">'.$_SESSION['countUnread'].'</span></sup></h2>';
     $initialMessageNo = 1;
     foreach ($messages as $message) {
         //Display unread messages
         if($message['m_status'] == 0){
             $messageNo = $initialMessageNo ++;
+            //count of Unread messages
+            $_SESSION['countUnread'] = $messageNo;
             echo'<div class="message">
             <p>'.$messageNo.'</p>
             <h4 class="sender">From :   '.$message['s_name'].'</h4>
@@ -35,11 +35,14 @@ include "../classes/message.php";
         }
     }
     //Display read messages
-    echo '<h2>READ MESSAGES</h2>';
+    echo '<h2>READ MESSAGES<sup><span class="messageCount">'.$_SESSION['countRead'].'</span></sup></h2>';
     $initialMessageNo = 1;
     foreach($messages as $message){
         if($message['m_status'] == 1){
             $messageNo = $initialMessageNo ++;
+            //count of Read messages
+            $_SESSION['countRead'] = $messageNo;
+            
             echo'<div class="message">
             <p>'.$messageNo.'</p>
             <h4 class="sender">From :   '.$message['s_name'].'</h4>
@@ -51,7 +54,8 @@ include "../classes/message.php";
         <hr>';
         }
     }
-//Mark as read Mark As unread
+    
+    //Mark as read Mark As unread
     if (isset($_GET['markAsRead']) && isset($_GET['mId'])) {
 
         $mId = $_GET['mId'];
